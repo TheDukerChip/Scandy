@@ -8,18 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ExperimentalGetImage
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
 import dev.thedukerchip.barcodebuddy.databinding.FragmentScanBarcodeBinding
 import dev.thedukerchip.barcodebuddy.permissions.PermissionWrapper
 import dev.thedukerchip.barcodebuddy.ui.extensions.gone
 import dev.thedukerchip.barcodebuddy.ui.extensions.openApplicationSettings
 import dev.thedukerchip.barcodebuddy.ui.extensions.visible
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
+@ExperimentalGetImage
 class ScanBarcodeFragment : Fragment() {
+
+    @Inject
+    lateinit var barcodeImageAnalyzer: ImageAnalysis
 
     private lateinit var binding: FragmentScanBarcodeBinding
     private val cameraPermission = PermissionWrapper(this, Manifest.permission.CAMERA)
@@ -77,7 +85,7 @@ class ScanBarcodeFragment : Fragment() {
 
             try {
                 cameraProvider.unbindAll()
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview)
+                cameraProvider.bindToLifecycle(this, cameraSelector, barcodeImageAnalyzer, preview)
             } catch (ex: Exception) {
                 Log.e("Scanner", "Unable to bind the camera", ex)
             }
