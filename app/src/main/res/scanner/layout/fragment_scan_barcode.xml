@@ -44,4 +44,15 @@
         android:layout_height="wrap_content"
         app:constraint_referenced_ids="permission_title_tv,permission_info_tv,camera_access_btn" />
 
+    <androidx.camera.view.PreviewView
+        android:id="@+id/barcode_finder_pv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/scanner_grp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="barcode_finder_pv" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
