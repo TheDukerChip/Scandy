@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--  STRINGS  -->
     <string name="menu_item_scan_barcode">Scan</string>
     <string name="menu_item_scanned_history">History</string>
 </resources>

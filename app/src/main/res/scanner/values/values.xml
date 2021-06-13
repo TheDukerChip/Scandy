@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  STRINGS  -->
+    <string name="title_camera_permission">Camera Access</string>
+    <string name="info_camera_permission">To scan barcode kindly turn on Camera access for Barcode Buddy</string>
+    <string name="action_turn_on">Turn on</string>
+
+    <!--  DIMENSIONS  -->
+    <dimen name="permission_title_spacing">8dp</dimen>
+    <dimen name="permission_action_spacing">12dp</dimen>
+</resources>

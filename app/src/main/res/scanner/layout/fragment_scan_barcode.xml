@@ -4,13 +4,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--  TODO: Update the views  -->
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/permission_title_tv"
+        style="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        style="@style/TextAppearance.MaterialComponents.Headline4"
-        android:text="Scan barcode"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginBottom="@dimen/permission_title_spacing"
+        android:text="@string/title_camera_permission"
+        app:layout_constraintBottom_toTopOf="@id/permission_info_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/permission_info_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/info_camera_permission"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent=".8" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/camera_access_btn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/permission_action_spacing"
+        android:text="@string/action_turn_on"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/permission_info_tv" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/permission_info_grp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="permission_title_tv,permission_info_tv,camera_access_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
