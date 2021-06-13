@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/launcher_menu"
+    app:startDestination="@id/scan_barcode">
+
+    <fragment
+        android:id="@+id/scan_barcode"
+        android:name="dev.thedukerchip.barcodebuddy.ui.scanner.ScanBarcodeFragment"
+        android:label="Scan barcode"
+        tools:layout="@layout/fragment_scan_barcode" />
+
+    <fragment
+        android:id="@+id/scanned_history"
+        android:name="dev.thedukerchip.barcodebuddy.ui.history.ScannedHistoryFragment"
+        android:label="Scanned history"
+        tools:layout="@layout/fragment_scanned_history" />
+</navigation>

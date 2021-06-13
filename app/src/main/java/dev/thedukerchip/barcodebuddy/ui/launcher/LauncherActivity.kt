@@ -1,9 +1,12 @@
 package dev.thedukerchip.barcodebuddy.ui.launcher
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.thedukerchip.barcodebuddy.R
 import dev.thedukerchip.barcodebuddy.databinding.ActivityLauncherBinding
 
 @AndroidEntryPoint
@@ -14,7 +17,16 @@ class LauncherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLauncherBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setContentView(R.layout.activity_launcher)
+        initBottomNav()
     }
+
+    private fun initBottomNav() {
+        binding.navMenu.setupWithNavController(binding.navHost.navController)
+    }
+
+    private val FragmentContainerView.navController: NavController
+        get() = (supportFragmentManager.findFragmentById(this.id) as NavHostFragment).navController
+
 }
