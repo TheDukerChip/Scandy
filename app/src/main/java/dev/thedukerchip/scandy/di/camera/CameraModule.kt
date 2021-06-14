@@ -1,4 +1,4 @@
-package dev.thedukerchip.barcodebuddy.di.camera
+package dev.thedukerchip.scandy.di.camera
 
 import android.content.Context
 import android.util.Size
@@ -10,13 +10,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dev.thedukerchip.barcodebuddy.camera.BarcodeAnalyzer
+import dev.thedukerchip.scandy.camera.BarcodeAnalyzer
 
 @Module
 @InstallIn(FragmentComponent::class)
 class CameraModule {
-    @ExperimentalGetImage
     @Provides
+    @ExperimentalGetImage
     fun providerBarcodeImageAnalyzer(@ApplicationContext context: Context): ImageAnalysis {
         val analyzer = ImageAnalysis.Builder()
             .setTargetResolution(Size(1280, 720))

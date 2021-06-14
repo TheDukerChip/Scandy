@@ -1,4 +1,4 @@
-package dev.thedukerchip.barcodebuddy.camera
+package dev.thedukerchip.scandy.camera
 
 import android.util.Log
 import androidx.camera.core.ExperimentalGetImage

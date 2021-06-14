@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "dev.thedukerchip.barcodebuddy"
+        applicationId "dev.thedukerchip.scandy"
         minSdk 23
         targetSdk 30
         versionCode 1

@@ -1,4 +1,4 @@
-package dev.thedukerchip.barcodebuddy.ui.scanner
+package dev.thedukerchip.scandy.ui.scanner
 
 import android.Manifest
 import android.os.Bundle
@@ -15,11 +15,11 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import dev.thedukerchip.barcodebuddy.databinding.FragmentScanBarcodeBinding
-import dev.thedukerchip.barcodebuddy.permissions.PermissionWrapper
-import dev.thedukerchip.barcodebuddy.ui.extensions.gone
-import dev.thedukerchip.barcodebuddy.ui.extensions.openApplicationSettings
-import dev.thedukerchip.barcodebuddy.ui.extensions.visible
+import dev.thedukerchip.scandy.permissions.PermissionWrapper
+import dev.thedukerchip.scandy.ui.extensions.gone
+import dev.thedukerchip.scandy.ui.extensions.openApplicationSettings
+import dev.thedukerchip.scandy.ui.extensions.visible
+import scandy.databinding.FragmentScanBarcodeBinding
 import javax.inject.Inject
 
 @AndroidEntryPoint

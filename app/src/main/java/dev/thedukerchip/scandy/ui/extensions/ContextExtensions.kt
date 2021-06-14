@@ -1,4 +1,4 @@
-package dev.thedukerchip.barcodebuddy.ui.extensions
+package dev.thedukerchip.scandy.ui.extensions
 
 import android.content.Context
 import android.content.Intent

@@ -1,4 +1,4 @@
-package dev.thedukerchip.barcodebuddy
+package dev.thedukerchip.scandy
 
 import org.junit.Test
 

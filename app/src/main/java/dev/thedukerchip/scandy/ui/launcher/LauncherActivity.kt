@@ -1,4 +1,4 @@
-package dev.thedukerchip.barcodebuddy.ui.launcher
+package dev.thedukerchip.scandy.ui.launcher
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
-import dev.thedukerchip.barcodebuddy.databinding.ActivityLauncherBinding
+import scandy.databinding.ActivityLauncherBinding
 
 @AndroidEntryPoint
 class LauncherActivity : AppCompatActivity() {

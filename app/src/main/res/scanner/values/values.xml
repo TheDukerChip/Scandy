@@ -2,7 +2,7 @@
 <resources>
     <!--  STRINGS  -->
     <string name="title_camera_permission">Camera Access</string>
-    <string name="info_camera_permission">To scan barcode kindly turn on Camera access for Barcode Buddy</string>
+    <string name="info_camera_permission">To scan barcode kindly turn on Camera access for Scandy</string>
     <string name="action_turn_on">Turn on</string>
 
     <!--  DIMENSIONS  -->
