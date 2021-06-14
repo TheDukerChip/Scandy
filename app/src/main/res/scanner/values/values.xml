@@ -4,8 +4,11 @@
     <string name="title_camera_permission">Camera Access</string>
     <string name="info_camera_permission">To scan barcode kindly turn on Camera access for Scandy</string>
     <string name="action_turn_on">Turn on</string>
+    <string name="cd_torch_btn">Enable/Disable flash light</string>
 
     <!--  DIMENSIONS  -->
     <dimen name="permission_title_spacing">8dp</dimen>
     <dimen name="permission_action_spacing">12dp</dimen>
+    <dimen name="torch_button_margin">8dp</dimen>
+    <dimen name="torch_dimension">@dimen/touch_target_min_size</dimen>
 </resources>

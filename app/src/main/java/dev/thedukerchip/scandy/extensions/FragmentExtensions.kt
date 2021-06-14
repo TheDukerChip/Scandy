@@ -1,4 +1,4 @@
-package dev.thedukerchip.scandy.ui.extensions
+package dev.thedukerchip.scandy.extensions
 
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat

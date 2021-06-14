@@ -49,10 +49,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/torch_btn"
+        style="@style/Theme.Scandy.IconButton"
+        android:layout_margin="@dimen/torch_button_margin"
+        android:contentDescription="@string/cd_torch_btn"
+        android:visibility="gone"
+        app:icon="@drawable/ic_torch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/scanner_grp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="barcode_finder_pv" />
+        app:constraint_referenced_ids="barcode_finder_pv,torch_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,13 +6,13 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="dev.thedukerchip.scandy.BarcodeApp"
+        android:name="dev.thedukerchip.scandy.ScandyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BarcodeBuddy">
+        android:theme="@style/Theme.Scandy">
         <activity
             android:name="dev.thedukerchip.scandy.ui.launcher.LauncherActivity"
             android:exported="true">
