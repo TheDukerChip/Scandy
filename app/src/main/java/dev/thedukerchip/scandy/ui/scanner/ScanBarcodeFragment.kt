@@ -47,7 +47,7 @@ class ScanBarcodeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentScanBarcodeBinding.inflate(inflater, container, false)
         return binding.root
     }
