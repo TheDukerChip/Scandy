@@ -3,6 +3,7 @@ package dev.thedukerchip.scandy.ui.scanner
 import android.Manifest
 import android.os.Bundle
 import android.util.Log
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,22 +14,22 @@ import androidx.camera.view.LifecycleCameraController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import dev.thedukerchip.scandy.permissions.PermissionWrapper
+import dev.thedukerchip.scandy.camera.BarcodeAnalyzer
+import dev.thedukerchip.scandy.camera.OnBarcodeDetected
 import dev.thedukerchip.scandy.extensions.*
+import dev.thedukerchip.scandy.permissions.PermissionWrapper
 import scandy.databinding.FragmentScanBarcodeBinding
-import javax.inject.Inject
 
 @AndroidEntryPoint
 @ExperimentalGetImage
 class ScanBarcodeFragment : Fragment() {
 
-    @Inject
-    lateinit var barcodeImageAnalyzer: ImageAnalysis
-
     private lateinit var binding: FragmentScanBarcodeBinding
 
     private val cameraPermission = PermissionWrapper(this, Manifest.permission.CAMERA)
     private var cameraController: LifecycleCameraController? = null
+    private var cameraProvider: ProcessCameraProvider? = null
+    private var imageAnalysis: ImageAnalysis? = null
 
     private val permissionHandler =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { accepted ->
@@ -36,6 +37,11 @@ class ScanBarcodeFragment : Fragment() {
                 startCamera()
             }
         }
+
+    private val onBarcodeDetected: OnBarcodeDetected = {
+        cameraProvider?.unbind(imageAnalysis)
+        
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -113,13 +119,15 @@ class ScanBarcodeFragment : Fragment() {
     }
 
     private fun onCameraProviderPrepared(provider: ProcessCameraProvider) {
+        this.cameraProvider = provider
         with(provider) {
+            this@ScanBarcodeFragment.imageAnalysis = getImagerAnalyzer()
             try {
                 unbindAll()
                 bindToLifecycle(
                     this@ScanBarcodeFragment,
                     CameraSelector.DEFAULT_BACK_CAMERA,
-                    barcodeImageAnalyzer,
+                    this@ScanBarcodeFragment.imageAnalysis,
                     getPreviewConfig()
                 )
             } catch (ex: Exception) {
@@ -132,5 +140,16 @@ class ScanBarcodeFragment : Fragment() {
         return Preview.Builder().build().also {
             it.setSurfaceProvider(binding.barcodeFinderPv.surfaceProvider)
         }
+    }
+
+    private fun getImagerAnalyzer(): ImageAnalysis {
+        val analyzer = ImageAnalysis.Builder()
+            .setTargetResolution(Size(1280, 720))
+            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+            .build()
+
+        analyzer.setAnalyzer(ContextCompat.getMainExecutor(context), BarcodeAnalyzer(onBarcodeDetected))
+
+        return analyzer
     }
 }

@@ -6,12 +6,13 @@ import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
-import dagger.hilt.android.scopes.FragmentScoped
-import javax.inject.Inject
+
+
+typealias OnBarcodeDetected = (Barcode) -> Unit
 
 @ExperimentalGetImage
-@FragmentScoped
-class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
+class BarcodeAnalyzer(private val onBarcodeDetected: OnBarcodeDetected) : ImageAnalysis.Analyzer {
+
     override fun analyze(imageProxy: ImageProxy) {
         val mediaImage = imageProxy.image
 
@@ -22,7 +23,11 @@ class BarcodeAnalyzer @Inject constructor() : ImageAnalysis.Analyzer {
             scanner.process(image).addOnSuccessListener {
                 if (it.isNotEmpty()) {
                     it.forEach { barcode ->
-                        Log.i("Barcode", barcode.rawValue)
+                        val displayValue = barcode.displayValue ?: return@forEach
+                        if (displayValue.isNotEmpty()) {
+                            onBarcodeDetected(Barcode(displayValue))
+                            return@addOnSuccessListener
+                        }
                     }
                 }
                 imageProxy.close()

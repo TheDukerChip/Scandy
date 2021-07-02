@@ -9,11 +9,20 @@
         android:id="@+id/scan_barcode"
         android:name="dev.thedukerchip.scandy.ui.scanner.ScanBarcodeFragment"
         android:label="Scan barcode"
-        tools:layout="@layout/fragment_scan_barcode" />
+        tools:layout="@layout/fragment_scan_barcode">
+        <action
+            android:id="@+id/displayBarcode"
+            app:destination="@id/scanned_history" />
+    </fragment>
 
     <fragment
         android:id="@+id/scanned_history"
         android:name="dev.thedukerchip.scandy.ui.history.ScannedHistoryFragment"
         android:label="Scanned history"
-        tools:layout="@layout/fragment_scanned_history" />
+        tools:layout="@layout/fragment_scanned_history">
+        <argument
+            android:name="barcode"
+            app:argType="dev.thedukerchip.scandy.camera.Barcode"
+            app:nullable="false" />
+    </fragment>
 </navigation>
