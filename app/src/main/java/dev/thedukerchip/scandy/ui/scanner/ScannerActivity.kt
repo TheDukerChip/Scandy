@@ -4,6 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
+import androidx.activity.viewModels
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.LifecycleCameraController
@@ -14,12 +15,16 @@ import dev.thedukerchip.scandy.extensions.*
 import dev.thedukerchip.scandy.permissions.PermissionResult
 import dev.thedukerchip.scandy.permissions.permissionWrapperFor
 import dev.thedukerchip.scandy.ui.BaseActivity
+import dev.thedukerchip.scandy.vm.scanner.FlashState
+import dev.thedukerchip.scandy.vm.scanner.ScannerUiEvent
+import dev.thedukerchip.scandy.vm.scanner.ScannerVm
 import scandy.databinding.ActivityScannerBinding
 
 @ExperimentalGetImage
 class ScannerActivity : BaseActivity() {
 
     private lateinit var binding: ActivityScannerBinding
+    private val viewModel: ScannerVm by viewModels()
 
     private var cameraController: LifecycleCameraController? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -58,7 +63,17 @@ class ScannerActivity : BaseActivity() {
         binding.scannerGrp.gone()
 
         binding.cameraAccessBtn.setOnClickListener(::requestCameraAccess)
-        binding.torchBtn.setOnClickListener(::toggleTorchState)
+        binding.torchBtn.setOnClickListener {
+            viewModel.processEvents(ScannerUiEvent.ToggleFlash)
+        }
+
+        viewModel.flashState.observe(this) {
+            val state = when (it) {
+                FlashState.OFF -> false
+                FlashState.ON -> true
+            }
+            cameraController?.enableTorch(state)
+        }
     }
 
     private fun checkCameraAccess() {
@@ -69,13 +84,6 @@ class ScannerActivity : BaseActivity() {
 
     private fun requestCameraAccess() {
         cameraPermission.request()
-    }
-
-    private fun toggleTorchState() {
-        cameraController?.let {
-            val currentState = it.torchState.value == TorchState.ON
-            it.enableTorch(!currentState)
-        }
     }
 
     override fun onResume() {
