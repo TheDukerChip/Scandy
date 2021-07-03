@@ -1,20 +1,47 @@
 package dev.thedukerchip.scandy.permissions
 
-import android.content.Context
-import dev.thedukerchip.scandy.extensions.isPermissionGranted
+import androidx.activity.result.ActivityResultCallback
+import dev.thedukerchip.scandy.extensions.openApplicationSettings
+import dev.thedukerchip.scandy.ui.BaseActivity
 
+typealias PermissionResult = ActivityResultCallback<Boolean>
 
-class PermissionWrapper(private val context: Context, private val permission: String) {
+class PermissionWrapper(
+    private val host: PermissionHost,
+    private val permission: String,
+    permissionResult: PermissionResult
+) {
     val isGranted: Boolean
-        get() = context.isPermissionGranted(permission)
-
-    init {
-        TODO(" Make the permission wrapper class lifecycle aware component")
-        TODO ("Add the activity result for permission request in here")
-    }
+        get() = host.isPermissionGranted(permission)
 
     val shouldShowRationale: Boolean
-        get() {
-            TODO("Find the show rationale technique to get the state")
+        get() = host.isRationaleRequired(permission)
+
+    private val activityResult = host.registerPermissionRequest(permissionResult)
+
+    fun check(action: () -> Unit) {
+        if (isGranted) {
+            action()
+        } else {
+            request()
         }
+    }
+
+    fun request() {
+        if (shouldShowRationale) {
+            activityResult.launch(permission)
+        } else {
+            host.context.openApplicationSettings()
+        }
+    }
 }
+
+
+fun BaseActivity.permissionWrapperFor(
+    permission: String,
+    callback: PermissionResult
+) = PermissionWrapper(
+    PermissionHost.Activity(this),
+    permission,
+    callback
+)

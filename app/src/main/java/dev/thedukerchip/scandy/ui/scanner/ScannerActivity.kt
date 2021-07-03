@@ -4,34 +4,34 @@ import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.LifecycleCameraController
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
 import dev.thedukerchip.scandy.camera.BarcodeAnalyzer
 import dev.thedukerchip.scandy.camera.OnBarcodeDetected
 import dev.thedukerchip.scandy.extensions.*
-import dev.thedukerchip.scandy.permissions.PermissionWrapper
+import dev.thedukerchip.scandy.permissions.PermissionResult
+import dev.thedukerchip.scandy.permissions.permissionWrapperFor
+import dev.thedukerchip.scandy.ui.BaseActivity
 import scandy.databinding.ActivityScannerBinding
 
 @ExperimentalGetImage
-class ScannerActivity : FragmentActivity() {
+class ScannerActivity : BaseActivity() {
 
     private lateinit var binding: ActivityScannerBinding
 
-    private val cameraPermission = PermissionWrapper(baseContext, Manifest.permission.CAMERA)
     private var cameraController: LifecycleCameraController? = null
     private var cameraProvider: ProcessCameraProvider? = null
     private var imageAnalysis: ImageAnalysis? = null
 
-    private val permissionHandler =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { accepted ->
-            if (accepted) {
-                startCamera()
-            }
+    private val onPermissionResult = PermissionResult { accepted ->
+        if (accepted) {
+            startCamera()
         }
+    }
+    private val cameraPermission =
+        permissionWrapperFor(Manifest.permission.CAMERA, onPermissionResult)
 
     private val onBarcodeDetected: OnBarcodeDetected = {
         cameraProvider?.unbind(imageAnalysis)
@@ -62,19 +62,13 @@ class ScannerActivity : FragmentActivity() {
     }
 
     private fun checkCameraAccess() {
-        if (cameraPermission.isGranted) {
+        cameraPermission.check {
             startCamera()
-        } else {
-            permissionHandler.launch(Manifest.permission.CAMERA)
         }
     }
 
     private fun requestCameraAccess() {
-        if (cameraPermission.shouldShowRationale) {
-            permissionHandler.launch(Manifest.permission.CAMERA)
-        } else {
-            openApplicationSettings()
-        }
+        cameraPermission.request()
     }
 
     private fun toggleTorchState() {
