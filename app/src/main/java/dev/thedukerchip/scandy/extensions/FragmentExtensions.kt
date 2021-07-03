@@ -1,10 +1,10 @@
 package dev.thedukerchip.scandy.extensions
 
+import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 
-fun Fragment.isPermissionGranted(permission: String): Boolean {
-    val permissionState = ContextCompat.checkSelfPermission(requireContext(), permission)
+fun Context.isPermissionGranted(permission: String): Boolean {
+    val permissionState = ContextCompat.checkSelfPermission(this, permission)
     return permissionState == PackageManager.PERMISSION_GRANTED
 }

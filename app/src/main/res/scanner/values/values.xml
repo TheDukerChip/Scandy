@@ -10,5 +10,4 @@
     <dimen name="permission_title_spacing">8dp</dimen>
     <dimen name="permission_action_spacing">12dp</dimen>
     <dimen name="torch_button_margin">8dp</dimen>
-    <dimen name="torch_dimension">@dimen/touch_target_min_size</dimen>
 </resources>
