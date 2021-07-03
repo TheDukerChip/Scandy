@@ -14,6 +14,8 @@ class PermissionWrapper(
     val isGranted: Boolean
         get() = host.isPermissionGranted(permission)
 
+    var askingFirstTime = true
+
     val shouldShowRationale: Boolean
         get() = host.isRationaleRequired(permission)
 
@@ -28,8 +30,10 @@ class PermissionWrapper(
     }
 
     fun request() {
-        if (shouldShowRationale) {
+        if (!shouldShowRationale) {
             activityResult.launch(permission)
+        } else if (askingFirstTime) {
+            askingFirstTime = false
         } else {
             host.context.openApplicationSettings()
         }
