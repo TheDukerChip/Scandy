@@ -12,6 +12,8 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@android:color/black</item>
+        <item name="fontFamily">@font/lobster_regular</item>
     </style>
 
     <style name="Theme.Scandy.IconButton" parent="Widget.MaterialComponents.Button">
