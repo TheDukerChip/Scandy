@@ -1,30 +1,28 @@
 package dev.thedukerchip.scandy.ui.scanner
 
 import android.Manifest
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
-import androidx.activity.viewModels
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.LifecycleCameraController
 import androidx.core.content.ContextCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.thedukerchip.scandy.camera.BarcodeAnalyzer
 import dev.thedukerchip.scandy.camera.OnBarcodeDetected
 import dev.thedukerchip.scandy.extensions.*
 import dev.thedukerchip.scandy.permissions.PermissionResult
 import dev.thedukerchip.scandy.permissions.permissionWrapperFor
 import dev.thedukerchip.scandy.ui.BaseActivity
-import dev.thedukerchip.scandy.vm.scanner.FlashState
-import dev.thedukerchip.scandy.vm.scanner.ScannerUiEvent
-import dev.thedukerchip.scandy.vm.scanner.ScannerVm
 import scandy.databinding.ActivityScannerBinding
+import java.lang.RuntimeException
 
 @ExperimentalGetImage
 class ScannerActivity : BaseActivity() {
 
     private lateinit var binding: ActivityScannerBinding
-    private val viewModel: ScannerVm by viewModels()
 
     private var cameraController: LifecycleCameraController? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -63,16 +61,26 @@ class ScannerActivity : BaseActivity() {
         binding.scannerGrp.gone()
 
         binding.cameraAccessBtn.setOnClickListener(::requestCameraAccess)
+        binding.torchBtn.setFlashState(FlashState.OFF)
         binding.torchBtn.setOnClickListener {
-            viewModel.processEvents(ScannerUiEvent.ToggleFlash)
+            cameraController?.toggleFlashState()
         }
 
-        viewModel.flashState.observe(this) {
-            val state = when (it) {
-                FlashState.OFF -> false
-                FlashState.ON -> true
-            }
-            cameraController?.enableTorch(state)
+        cameraController?.torchState?.observe(this) {
+            binding.torchBtn.setFlashState(FlashState.fromTorchState(it))
+        }
+    }
+
+    private fun FloatingActionButton.setFlashState(state: FlashState) {
+        backgroundTintList = ColorStateList.valueOf(getColor(state.color()))
+        setImageDrawable(ContextCompat.getDrawable(context, state.icon()))
+    }
+
+    private fun LifecycleCameraController.toggleFlashState() {
+        when (torchState.value) {
+            TorchState.ON -> enableTorch(false)
+            TorchState.OFF -> enableTorch(true)
+            else -> throw RuntimeException("Invalid TorchState")
         }
     }
 
