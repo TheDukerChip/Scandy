@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
+import android.view.WindowManager
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.LifecycleCameraController
@@ -42,6 +43,7 @@ class ScannerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setNoLimitsToLayout()
 
         binding = ActivityScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
