@@ -26,6 +26,9 @@
         <activity
             android:name="dev.thedukerchip.scandy.ui.scanner.ScannerActivity"
             android:exported="true" />
+        <activity
+            android:name="dev.thedukerchip.scandy.ui.display.DisplayActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

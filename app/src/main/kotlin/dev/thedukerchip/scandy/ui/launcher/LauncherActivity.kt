@@ -22,5 +22,6 @@ class LauncherActivity : AppCompatActivity() {
 
     private fun openScanner() {
         startActivity(Intent(this, ScannerActivity::class.java))
+        finish()
     }
 }

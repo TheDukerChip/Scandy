@@ -1,11 +1,11 @@
 package dev.thedukerchip.scandy.ui.scanner
 
 import android.Manifest
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
-import android.view.WindowManager
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.LifecycleCameraController
@@ -17,8 +17,10 @@ import dev.thedukerchip.scandy.extensions.*
 import dev.thedukerchip.scandy.permissions.PermissionResult
 import dev.thedukerchip.scandy.permissions.permissionWrapperFor
 import dev.thedukerchip.scandy.ui.BaseActivity
+import dev.thedukerchip.scandy.ui.display.DisplayActivity
 import scandy.databinding.ActivityScannerBinding
-import java.lang.RuntimeException
+
+const val CODE = "code"
 
 @ExperimentalGetImage
 class ScannerActivity : BaseActivity() {
@@ -37,7 +39,10 @@ class ScannerActivity : BaseActivity() {
     private val cameraPermission =
         permissionWrapperFor(Manifest.permission.CAMERA, onPermissionResult)
 
-    private val onBarcodeDetected: OnBarcodeDetected = {
+    private val onBarcodeDetected: OnBarcodeDetected = { code ->
+        startActivity(Intent(this, DisplayActivity::class.java).also {
+            it.putExtra(CODE, code)
+        })
         cameraProvider?.unbind(imageAnalysis)
     }
 

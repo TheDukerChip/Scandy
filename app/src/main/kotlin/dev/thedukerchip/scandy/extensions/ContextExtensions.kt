@@ -1,5 +1,7 @@
 package dev.thedukerchip.scandy.extensions
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -10,4 +12,16 @@ fun Context.openApplicationSettings() {
     val uri: Uri = Uri.fromParts("package", packageName, null)
     intent.data = uri
     startActivity(intent)
+}
+
+fun Context.copyToClipboard(label: String, text: String) {
+    val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText(label, text)
+    clipboard.setPrimaryClip(clip)
+}
+
+fun Context.openUrl(url: String) {
+    val uri = Uri.parse(url)
+    val browserIntent = Intent(Intent.ACTION_VIEW, uri)
+    startActivity(browserIntent)
 }

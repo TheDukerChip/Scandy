@@ -8,7 +8,7 @@ import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 
 
-typealias OnBarcodeDetected = (Barcode) -> Unit
+typealias OnBarcodeDetected = (ScandyBarcode) -> Unit
 
 @ExperimentalGetImage
 class BarcodeAnalyzer(private val onBarcodeDetected: OnBarcodeDetected) : ImageAnalysis.Analyzer {
@@ -23,10 +23,9 @@ class BarcodeAnalyzer(private val onBarcodeDetected: OnBarcodeDetected) : ImageA
             scanner.process(image).addOnSuccessListener {
                 if (it.isNotEmpty()) {
                     it.forEach { barcode ->
-                        val displayValue = barcode.displayValue ?: return@forEach
-                        if (displayValue.isNotEmpty()) {
-                            onBarcodeDetected(Barcode(displayValue))
-                            return@addOnSuccessListener
+                        val scandy = barcode.toScandyBarcode()
+                        if (scandy !is ScandyBarcode.Unknown) {
+                            onBarcodeDetected(scandy)
                         }
                     }
                 }

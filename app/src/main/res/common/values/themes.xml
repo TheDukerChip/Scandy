@@ -14,7 +14,6 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@android:color/black</item>
         <item name="android:windowBackground">@color/white</item>
-        <item name="fontFamily">@font/lobster_regular</item>
     </style>
 
     <style name="Theme.Scandy.IconButton" parent="Widget.MaterialComponents.Button">
