@@ -1,3 +1,6 @@
+// @TODO Add Crashlytics
+// @TODO Add Firebase Analytics
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
@@ -21,6 +24,8 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        // @TODO Add a separate package name for dev build
     }
 
     compileOptions {
