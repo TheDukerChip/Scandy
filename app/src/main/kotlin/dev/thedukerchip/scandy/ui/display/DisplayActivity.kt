@@ -50,13 +50,14 @@ class DisplayActivity : BaseActivity() {
 
     private fun showBrowse(url: String?) {
         val browseIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        if(browseIntent.resolveActivity(packageManager) != null) {
+        if (browseIntent.resolveActivity(packageManager) != null) {
             if (url != null) {
                 binding.displayValue.text = url
                 binding.browse.show()
                 binding.browse.setOnClickListener {
                     startActivity(browseIntent)
                 }
+                startActivity(browseIntent)
             }
         }
     }
