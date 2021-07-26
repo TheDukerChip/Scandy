@@ -25,6 +25,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
+        debug {
+            minifyEnabled false
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-Dev'
+
+
+        }
         // @TODO Add a separate package name for dev build
     }
 
