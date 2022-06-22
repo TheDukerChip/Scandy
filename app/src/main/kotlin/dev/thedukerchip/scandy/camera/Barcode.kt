@@ -1,6 +1,6 @@
 package dev.thedukerchip.scandy.camera
 
-import com.google.mlkit.vision.barcode.Barcode
+import com.google.mlkit.vision.barcode.common.Barcode
 import java.io.Serializable
 
 sealed class ScandyBarcode : Serializable {

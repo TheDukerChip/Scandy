@@ -28,8 +28,8 @@ class DisplayActivity : BaseActivity() {
             copyToClipboard("Scanned text", binding.displayValue.text.toString())
         }
 
-        val code = intent.getSerializableExtra(CODE)
-        if (code != null && code is ScandyBarcode) {
+        val code = intent.getSerializableExtra(CODE) as? ScandyBarcode
+        if (code != null) {
             when (code) {
                 is ScandyBarcode.Link -> {
                     showBrowse(code.url)
