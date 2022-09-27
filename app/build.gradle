@@ -31,10 +31,7 @@ android {
             minifyEnabled false
             applicationIdSuffix '.dev'
             versionNameSuffix '-Dev'
-
-
         }
-        // @TODO Add a separate package name for dev build
     }
 
     compileOptions {
@@ -60,6 +57,7 @@ android {
             ]
         }
     }
+    namespace 'scandy'
 }
 
 dependencies {
