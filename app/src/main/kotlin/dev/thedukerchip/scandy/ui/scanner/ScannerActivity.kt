@@ -10,20 +10,20 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.LifecycleCameraController
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dev.thedukerchip.scandy.camera.BarcodeAnalyzer
 import dev.thedukerchip.scandy.camera.OnBarcodeDetected
 import dev.thedukerchip.scandy.extensions.*
 import dev.thedukerchip.scandy.permissions.PermissionResult
 import dev.thedukerchip.scandy.permissions.permissionWrapperFor
-import dev.thedukerchip.scandy.ui.BaseActivity
 import dev.thedukerchip.scandy.ui.display.DisplayActivity
 import scandy.databinding.ActivityScannerBinding
 
 const val CODE = "code"
 
-@ExperimentalGetImage
-class ScannerActivity : BaseActivity() {
+
+class ScannerActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityScannerBinding
 
@@ -148,6 +148,7 @@ class ScannerActivity : BaseActivity() {
         }
     }
 
+    @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
     private fun getImagerAnalyzer(): ImageAnalysis {
         val analyzer = ImageAnalysis.Builder()
             .setTargetResolution(Size(1280, 720))

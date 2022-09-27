@@ -1,8 +1,8 @@
 package dev.thedukerchip.scandy.permissions
 
 import androidx.activity.result.ActivityResultCallback
+import androidx.fragment.app.FragmentActivity
 import dev.thedukerchip.scandy.extensions.openApplicationSettings
-import dev.thedukerchip.scandy.ui.BaseActivity
 
 typealias PermissionResult = ActivityResultCallback<Boolean>
 
@@ -41,7 +41,7 @@ class PermissionWrapper(
 }
 
 
-fun BaseActivity.permissionWrapperFor(
+fun FragmentActivity.permissionWrapperFor(
     permission: String,
     callback: PermissionResult
 ) = PermissionWrapper(
