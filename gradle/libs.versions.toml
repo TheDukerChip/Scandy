@@ -2,6 +2,7 @@
 androidxCamera = "1.1.0"
 androidxNavigation = "2.5.2"
 androidxRoom = "2.4.3"
+hilt = "2.44"
 
 [libraries]
 androidx-appcompat = "androidx.appcompat:appcompat:1.5.1"
@@ -16,6 +17,8 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidxRoom"}
 material = "com.google.android.material:material:1.6.1"
 mlkit-barcodeScanning = "com.google.mlkit:barcode-scanning:17.0.2"
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"}
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt"}
 
 # Testing Dependencies
 androidxTest-espresso = "androidx.test.espresso:espresso-core:3.4.0"

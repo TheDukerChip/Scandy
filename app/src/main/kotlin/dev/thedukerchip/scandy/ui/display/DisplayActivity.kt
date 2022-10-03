@@ -5,12 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import dagger.hilt.android.AndroidEntryPoint
 import dev.thedukerchip.scandy.camera.ScandyBarcode
 import dev.thedukerchip.scandy.extensions.copyToClipboard
 import dev.thedukerchip.scandy.ui.scanner.CODE
 import scandy.databinding.ActivityDisplayBinding
 
 
+@AndroidEntryPoint
 class DisplayActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityDisplayBinding

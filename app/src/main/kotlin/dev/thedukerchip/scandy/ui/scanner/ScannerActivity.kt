@@ -12,6 +12,7 @@ import androidx.camera.view.LifecycleCameraController
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import dev.thedukerchip.scandy.camera.BarcodeAnalyzer
 import dev.thedukerchip.scandy.camera.OnBarcodeDetected
 import dev.thedukerchip.scandy.extensions.*
@@ -22,7 +23,7 @@ import scandy.databinding.ActivityScannerBinding
 
 const val CODE = "code"
 
-
+@AndroidEntryPoint
 class ScannerActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityScannerBinding
