@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Scandy"
 include ':app'
+include ':data'
