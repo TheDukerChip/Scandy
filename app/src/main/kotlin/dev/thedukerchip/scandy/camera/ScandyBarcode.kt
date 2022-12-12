@@ -6,7 +6,7 @@ import java.io.Serializable
 sealed class ScandyBarcode : Serializable {
     object Unknown : ScandyBarcode()
     class Text(val text: String) : ScandyBarcode()
-    class Link(val title: String?, val url: String?) : ScandyBarcode()
+    class Link(val url: String?) : ScandyBarcode()
 
 //    val TYPE_UNKNOWN = 0
 //    val TYPE_TEXT = 7
@@ -23,17 +23,11 @@ sealed class ScandyBarcode : Serializable {
 //    val TYPE_SMS = 6
 //    val TYPE_GEO = 10
 //    val TYPE_DRIVER_LICENSE = 12
+
 }
 
-fun Barcode.toScandyBarcode(): ScandyBarcode {
-    return when (valueType) {
-        Barcode.TYPE_TEXT -> {
-            val text = displayValue?.trim() ?: ""
-            ScandyBarcode.Text(text)
-        }
-        Barcode.TYPE_URL -> {
-            ScandyBarcode.Link(url!!.title, url!!.url)
-        }
-        else -> ScandyBarcode.Unknown
-    }
+fun Barcode.toScandyBarcode(): ScandyBarcode = when (valueType) {
+    Barcode.TYPE_TEXT -> ScandyBarcode.Text(displayValue?.trim() ?: "")
+    Barcode.TYPE_URL -> ScandyBarcode.Link(url!!.url)
+    else -> ScandyBarcode.Unknown
 }

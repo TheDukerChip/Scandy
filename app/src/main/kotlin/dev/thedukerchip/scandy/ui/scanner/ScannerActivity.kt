@@ -6,7 +6,11 @@ import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.util.Size
-import androidx.camera.core.*
+import androidx.activity.viewModels
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.Preview
+import androidx.camera.core.TorchState
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.LifecycleCameraController
 import androidx.core.content.ContextCompat
@@ -15,7 +19,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import dev.thedukerchip.scandy.camera.BarcodeAnalyzer
 import dev.thedukerchip.scandy.camera.OnBarcodeDetected
-import dev.thedukerchip.scandy.extensions.*
+import dev.thedukerchip.scandy.extensions.addListener
+import dev.thedukerchip.scandy.extensions.gone
+import dev.thedukerchip.scandy.extensions.setNoLimitsToLayout
+import dev.thedukerchip.scandy.extensions.setOnClickListener
+import dev.thedukerchip.scandy.extensions.visible
 import dev.thedukerchip.scandy.permissions.PermissionResult
 import dev.thedukerchip.scandy.permissions.permissionWrapperFor
 import dev.thedukerchip.scandy.ui.display.DisplayActivity
@@ -27,6 +35,8 @@ const val CODE = "code"
 class ScannerActivity : FragmentActivity() {
 
     private lateinit var binding: ActivityScannerBinding
+
+    private val scannerVm: ScannerVm by viewModels()
 
     private var cameraController: LifecycleCameraController? = null
     private var cameraProvider: ProcessCameraProvider? = null
@@ -41,6 +51,7 @@ class ScannerActivity : FragmentActivity() {
         permissionWrapperFor(Manifest.permission.CAMERA, onPermissionResult)
 
     private val onBarcodeDetected: OnBarcodeDetected = { code ->
+        scannerVm.saveScannedItem(code)
         startActivity(Intent(this, DisplayActivity::class.java).also {
             it.putExtra(CODE, code)
         })
