@@ -8,4 +8,8 @@
     <string name="cd_action_back">Back to scanner</string>
     <string name="cd_action_copy">Copy to clipboard</string>
     <string name="cd_action_browse">Browse link</string>
+
+    <string name="menu_item_about">About</string>
+    <string name="link_privacy_policy"><a href="https://codeasmad.github.io/privacy_policy.html">Our privacy policy.</a></string>
+    <string name="app_description">Simple barcode scanner app with no ads.</string>
 </resources>

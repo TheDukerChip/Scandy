@@ -4,6 +4,10 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -28,6 +32,7 @@
         <activity
             android:name="dev.thedukerchip.scandy.ui.display.DisplayActivity"
             android:exported="true" />
+        <activity android:name="dev.thedukerchip.scandy.ui.about.AboutActivity" />
     </application>
 
     <queries>

@@ -17,12 +17,13 @@ import dev.thedukerchip.scandy.extensions.*
 import dev.thedukerchip.scandy.permissions.PermissionResult
 import dev.thedukerchip.scandy.permissions.permissionWrapperFor
 import dev.thedukerchip.scandy.ui.BaseActivity
+import dev.thedukerchip.scandy.ui.about.AboutActivity
 import dev.thedukerchip.scandy.ui.display.DisplayActivity
+import scandy.R
 import scandy.databinding.ActivityScannerBinding
 
 const val CODE = "code"
 
-@ExperimentalGetImage
 class ScannerActivity : BaseActivity() {
 
     private lateinit var binding: ActivityScannerBinding
@@ -48,7 +49,6 @@ class ScannerActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setNoLimitsToLayout()
 
         binding = ActivityScannerBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -76,6 +76,17 @@ class ScannerActivity : BaseActivity() {
         cameraController?.torchState?.observe(this) {
             binding.torchBtn.setFlashState(FlashState.fromTorchState(it))
         }
+
+        binding.toolbar?.setOnMenuItemClickListener {
+            if (it.itemId == R.id.item_about) {
+                onClickAbout()
+                true
+            } else false
+        }
+    }
+
+    private fun onClickAbout() {
+        startActivity(Intent(this, AboutActivity::class.java))
     }
 
     private fun FloatingActionButton.setFlashState(state: FlashState) {
@@ -148,6 +159,7 @@ class ScannerActivity : BaseActivity() {
         }
     }
 
+    @androidx.annotation.OptIn(androidx.camera.core.ExperimentalGetImage::class)
     private fun getImagerAnalyzer(): ImageAnalysis {
         val analyzer = ImageAnalysis.Builder()
             .setTargetResolution(Size(1280, 720))
